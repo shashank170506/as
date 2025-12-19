@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 50th Birthday Papa!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --secondary-color: #d97706;
+            --text-color: #ffffff;
+            --overlay-opacity: 0.75;
+            --card-bg: rgba(0, 0, 0, 0.4);
+            --accent-color: #fbbf24;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: #020617;
+            color: var(--text-color);
+            transition: all 0.5s ease;
+        }
+        
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .font-elegant {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-vibes {
+            font-family: 'Great Vibes', cursive;
+        }
+        
+        /* Photo Background with Adaptive Overlay */
+        .photo-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                linear-gradient(
+                    rgba(0, 0, 0, var(--overlay-opacity)), 
+                    rgba(0, 0, 0, calc(var(--overlay-opacity) + 0.1))
+                ),
+                var(--user-background, url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80')) center/cover no-repeat;
+            filter: var(--background-filter, brightness(0.9) contrast(1.1));
+            transition: all 0.8s ease-in-out;
+        }
+        
+        /* Adaptive color classes */
+        .adaptive-primary {
+            color: var(--primary-color);
+        }
+        
+        .adaptive-bg-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .adaptive-border-primary {
+            border-color: var(--primary-color);
+        }
+        
+        .adaptive-shadow-primary {
+            box-shadow: 0 0 20px color-mix(in srgb, var(--primary-color) 30%, transparent);
+        }
+        
+        .adaptive-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        /* Upload Modal */
+        .upload-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .upload-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            width: 90%;
+            max-width: 550px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--primary-color);
+            border-radius: 20px;
+            padding: 50px 20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 25px 0;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Permanent Change Notice */
+        .permanent-notice {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 20px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes balloonRise {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50vh) rotate(5deg); }
+            100% { transform: translateY(-120vh) rotate(-5deg); }
+        }
+        
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 1s ease-out forwards;
+        }
+        
+        .animate-fall {
+            animation: fall linear infinite;
+        }
+        
+        .animate-balloon-rise {
+            animation: balloonRise linear infinite;
+        }
+        
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Upload Button */
+        .upload-photo-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: var(--primary-color);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .upload-photo-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Current Background Indicator */
+        .current-bg-indicator {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Color Palette Preview */
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .color-sample:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Adaptive Message Box */
+        .adaptive-message-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Smart Theme Indicator */
+        .theme-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Photo Background with Adaptive Colors -->
+    <div class="photo-background" id="photoBackground"></div>
+    
+    <!-- Smart Theme Indicator -->
+    <div class="theme-indicator animate-fade-in" id="themeIndicator">
+        <i class="fas fa-palette"></i>
+        <span id="themeStatus">Adaptive Theme: Default</span>
+    </div>
+    
+    <!-- Upload Button -->
+    <button class="upload-photo-btn animate-fade-in" id="uploadBtn">
+        <i class="fas fa-camera"></i>
+        Upload Photo & Adapt Theme
+    </button>
+    
+    <!-- Current Background Indicator -->
+    <div class="current-bg-indicator animate-fade-in" id="bgIndicator">
+        <i class="fas fa-image"></i>
+        <span id="bgStatus">Default Background</span>
+    </div>
+    
+    <!-- Upload Modal -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-box animate-scale-in">
+            <h2 class="text-2xl font-bold text-white mb-3 text-center">Upload Photo & Adapt Theme</h2>
+            <p class="adaptive-primary text-center mb-6 font-semibold">
+                The website will automatically adapt colors based on your photo
+            </p>
+            
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt adaptive-primary text-6xl mb-5"></i>
+                <h3 class="text-white text-xl mb-3">Drag & Drop Your Photo</h3>
+                <p class="text-gray-300 mb-3">or click to browse files</p>
+                <p class="text-gray-400 text-sm">Website colors will adapt to match your photo</p>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+            
+            <div class="permanent-notice">
+                <i class="fas fa-magic text-green-400 mr-2"></i>
+                <span class="text-green-300 font-medium">
+                    Smart Theme: Colors, shadows, and effects will adapt to your photo
+                </span>
+            </div>
+            
+            <!-- Color Palette Preview -->
+            <div class="mb-6">
+                <p class="text-gray-300 mb-3 text-center">Detected Color Palette:</p>
+                <div class="color-palette" id="colorPalette">
+                    <!-- Colors will appear here -->
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <p class="text-gray-300 mb-2 text-center">Or use a URL:</p>
+                <input type="url" id="urlInput" 
+                       placeholder="https://example.com/photo.jpg" 
+                       class="w-full p-4 rounded-xl bg-gray-800/50 border border-gray-700 text-white focus:border-primary focus:outline-none transition-colors">
+            </div>
+            
+            <div class="flex gap-4">
+                <button class="flex-1 py-4 bg-gray-700/50 hover:bg-gray-600/50 text-white rounded-xl font-semibold transition-all backdrop-blur-sm"
+                        id="cancelBtn">
+                    Cancel
+                </button>
+                <button class="flex-1 py-4 adaptive-gradient text-slate-900 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        id="applyBtn" disabled>
+                    Apply Smart Theme
+                </button>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-400 text-sm">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Theme adapts based on dominant colors in your photo
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="root"></div>
+
+    <!-- Color Thief Library for Color Extraction -->
+    <script src="https://cdn.jsdelivr.net/npm/colorthief@2.3.2/dist/color-thief.umd.js"></script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Adaptive NightSky Component
+        const NightSky = () => {
+            const canvasRef = useRef(null);
+
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+
+                const resize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+                window.addEventListener('resize', resize);
+                resize();
+
+                const stars = [];
+                for (let i = 0; i < 200; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2,
+                        opacity: Math.random(),
+                        speed: 0.005 + Math.random() * 0.02
+                    });
+                }
+
+                const draw = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Get current theme color for gradient
+                    const primaryColor = getComputedStyle(document.documentElement)
+                        .getPropertyValue('--primary-color').trim();
+                    
+                    const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    grad.addColorStop(0, '#020617');
+                    grad.addColorStop(1, primaryColor + '10'); // Add alpha
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    stars.forEach(star => {
+                        star.opacity += star.speed;
+                        if (star.opacity > 1 || star.opacity < 0) star.speed *= -1;
+                        
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, star.opacity)})`;
+                        ctx.fill();
+                    });
+
+                    const moonX = canvas.width * 0.85;
+                    const moonY = canvas.height * 0.15;
+                    
+                    const glow = ctx.createRadialGradient(moonX, moonY, 10, moonX, moonY, 80);
+                    glow.addColorStop(0, 'rgba(255, 255, 200, 0.2)');
+                    glow.addColorStop(1, 'rgba(255, 255, 200, 0)');
+                    ctx.fillStyle = glow;
+                    ctx.beginPath();
+                    ctx.arc(moonX, moonY, 80, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fffde7';
+                    ctx.fill();
+
+                    requestAnimationFrame(draw);
+                };
+                draw();
+
+                return () => window.removeEventListener('resize', resize);
+            }, []);
+
+            return React.createElement('canvas', { 
+                ref: canvasRef, 
+                className: "fixed inset-0 pointer-events-none opacity-60" 
+            });
+        };
+
+        // Adaptive TypewriterMessage Component
+        const TypewriterMessage = () => {
+            const MESSAGES = [
+                "Happy Birthday Papa 🎂😊",
+                "Thank you for everything 🙏",
+                "Wishing you happiness & good health 🌟",
+                "Love you always ❤️"
+            ];
+            
+            const [currentLineIndex, setCurrentLineIndex] = useState(0);
+            const [displayedText, setDisplayedText] = useState([]);
+            const [isTyping, setIsTyping] = useState(true);
+
+            useEffect(() => {
+                if (currentLineIndex >= MESSAGES.length) {
+                    setIsTyping(false);
+                    return;
+                }
+
+                let charIndex = 0;
+                const currentFullLine = MESSAGES[currentLineIndex];
+                
+                const interval = setInterval(() => {
+                    if (charIndex <= currentFullLine.length) {
+                        setDisplayedText(prev => {
+                            const newLines = [...prev];
+                            newLines[currentLineIndex] = currentFullLine.substring(0, charIndex);
+                            return newLines;
+                        });
+                        charIndex++;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            setCurrentLineIndex(prev => prev + 1);
+                        }, 800);
+                    }
+                }, 60);
+
+                return () => clearInterval(interval);
+            }, [currentLineIndex]);
+
+            return React.createElement('div', {
+                className: "flex flex-col space-y-4 md:space-y-6"
+            }, displayedText.map((line, idx) => 
+                React.createElement('p', {
+                    key: idx,
+                    className: `text-xl md:text-3xl text-white font-cursive leading-relaxed ${idx === currentLineIndex && isTyping ? 'typewriter-cursor' : ''}`
+                }, line)
+            ));
+        };
+
+        // Adaptive FlowerDecoration Component
+        const FlowerDecoration = () => {
+            const Flower = ({ style }) => 
+                React.createElement('div', {
+                    className: "relative w-16 h-16",
+                    style
+                }, [
+                    React.createElement('div', { key: 'p1', className: "absolute inset-0 bg-pink-400 rounded-full scale-50" }),
+                    React.createElement('div', { key: 'p2', className: "absolute inset-0 bg-pink-300 rounded-full translate-x-4 scale-50" }),
+                    React.createElement('div', { key: 'p3', className: "absolute inset-0 bg-pink-300 rounded-full -translate-x-4 scale-50" }),
+                    React.createElement('div', { key: 'p4', className: "absolute inset-0 bg-pink-300 rounded-full translate-y-4 scale-50" }),
+                    React.createElement('div', { key: 'p5', className: "absolute inset-0 bg-pink-300 rounded-full -translate-y-4 scale-50" }),
+                    React.createElement('div', { key: 'center', className: "absolute inset-0 m-auto w-4 h-4 bg-yellow-400 rounded-full z-10" })
+                ]);
+
+            return React.createElement(React.Fragment, null, [
+                React.createElement('div', {
+                    key: 'top-left',
+                    className: "fixed top-4 left-4 pointer-events-none opacity-40 md:opacity-100 flex gap-2 rotate-[-15deg]"
+                }, [
+                    React.createElement(Flower, { key: 'f1' }),
+                    React.createElement(Flower, { key: 'f2', style: { transform: 'translate(20px, 30px) scale(0.8)' } })
+                ]),
+                React.createElement('div', {
+                    key: 'top-right',
+                    className: "fixed top-4 right-4 pointer-events-none opacity-40 md:opacity-100 flex gap-2 rotate-[15deg]"
+                }, [
+                    React.createElement(Flower, { key: 'f3' }),
+                    React.createElement(Flower, { key: 'f4', style: { transform: 'translate(-20px, 30px) scale(0.8)' } })
+                ]),
+                React.createElement('div', {
+                    key: 'bottom-left',
+                    className: "fixed bottom-4 left-4 pointer-events-none opacity-40 md:opacity-100 flex gap-2 rotate-[15deg]"
+                }, React.createElement(Flower, { key: 'f5' })),
+                React.createElement('div', {
+                    key: 'bottom-right',
+                    className: "fixed bottom-4 right-4 pointer-events-none opacity-40 md:opacity-100 flex gap-2 rotate-[-15deg]"
+                }, React.createElement(Flower, { key: 'f6' }))
+            ]);
+        };
+
+        // Adaptive BalloonContainer Component
+        const BalloonContainer = () => {
+            const [balloonColors, setBalloonColors] = useState([
+                'bg-red-500', 'bg-blue-500', 'bg-yellow-500', 
+                'bg-pink-500', 'bg-purple-500', 'bg-orange-500'
+            ]);
+
+            useEffect(() => {
+                // Update balloon colors based on theme
+                const primaryColor = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--primary-color').trim();
+                
+                if (primaryColor && primaryColor !== '#f59e0b') {
+                    const newColors = [
+                        `bg-[${primaryColor}]`,
+                        `bg-[color-mix(in srgb, ${primaryColor} 70%, white)]`,
+                        `bg-[color-mix(in srgb, ${primaryColor} 50%, yellow)]`,
+                        `bg-[color-mix(in srgb, ${primaryColor} 30%, pink)]`,
+                        `bg-[color-mix(in srgb, ${primaryColor} 80%, purple)]`,
+                        `bg-[color-mix(in srgb, ${primaryColor} 60%, orange)]`
+                    ];
+                    setBalloonColors(newColors);
+                }
+            }, []);
+
+            return React.createElement('div', {
+                className: "fixed inset-0 pointer-events-none overflow-hidden"
+            }, [...Array(15)].map((_, i) => {
+                const left = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = 15 + Math.random() * 10;
+                const color = balloonColors[i % balloonColors.length];
+                const size = 30 + Math.random() * 40;
+
+                return React.createElement('div', {
+                    key: i,
+                    className: `absolute bottom-[-100px] ${color} rounded-full opacity-60 flex flex-col items-center animate-balloon-rise`,
+                    style: {
+                        left: `${left}%`,
+                        width: `${size}px`,
+                        height: `${size * 1.2}px`,
+                        animationDelay: `${delay}s`,
+                        animationDuration: `${duration}s`,
+                    }
+                }, [
+                    React.createElement('div', {
+                        key: 'string',
+                        className: "absolute top-full w-[2px] h-20 bg-white/30"
+                    }),
+                    React.createElement('div', {
+                        key: 'reflection',
+                        className: "absolute top-2 left-3 w-4 h-6 bg-white/20 rounded-full rotate-[-45deg]"
+                    })
+                ]);
+            }));
+        };
+
+        // Adaptive ConfettiEffect Component
+        const ConfettiEffect = () => {
+            const [confettiColors, setConfettiColors] = useState([
+                '#fde047', '#facc15', '#fbbf24', '#f59e0b', '#d97706', '#ffffff'
+            ]);
+
+            useEffect(() => {
+                // Update confetti colors based on theme
+                const primaryColor = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--primary-color').trim();
+                
+                if (primaryColor && primaryColor !== '#f59e0b') {
+                    const hexColor = primaryColor.startsWith('#') ? primaryColor : `#${primaryColor}`;
+                    const newColors = [
+                        hexColor,
+                        lightenColor(hexColor, 20),
+                        lightenColor(hexColor, 40),
+                        darkenColor(hexColor, 20),
+                        darkenColor(hexColor, 40),
+                        '#ffffff'
+                    ];
+                    setConfettiColors(newColors);
+                }
+            }, []);
+
+            const pieces = 100;
+
+            return React.createElement('div', {
+                className: "fixed inset-0 pointer-events-none z-0"
+            }, [...Array(pieces)].map((_, i) => {
+                const left = Math.random() * 100;
+                const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                const delay = Math.random() * 5;
+                const duration = 2 + Math.random() * 3;
+                const size = 5 + Math.random() * 10;
+                
+                return React.createElement('div', {
+                    key: i,
+                    className: "absolute top-[-20px] rounded-sm",
+                    style: {
+                        left: `${left}%`,
+                        backgroundColor: color,
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        opacity: 0.7,
+                        animationDelay: `${delay}s`,
+                        animationDuration: `${duration}s`,
+                        animation: 'fall linear infinite',
+                        transform: `rotate(${Math.random() * 360}deg)`
+                    }
+                });
+            }));
+        };
+
+        // Helper functions for color manipulation
+        function lightenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) + amt;
+            const G = (num >> 8 & 0x00FF) + amt;
+            const B = (num & 0x0000FF) + amt;
+            return '#' + (
+                0x1000000 +
+                (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)
+            ).toString(16).slice(1);
+        }
+
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+            return '#' + (
+                0x1000000 +
+                (R > 0 ? R : 0) * 0x10000 +
+                (G > 0 ? G : 0) * 0x100 +
+                (B > 0 ? B : 0)
+            ).toString(16).slice(1);
+        }
+
+        // Main App Component with Adaptive Theme
+        const App = () => {
+            const [isStarted, setIsStarted] = useState(false);
+            const audioRef = useRef(null);
+            const [themeColor, setThemeColor] = useState('#f59e0b');
+
+            const startCelebration = () => {
+                setIsStarted(true);
+                if (audioRef.current) {
+                    audioRef.current.play().catch(err => console.log("Audio play requires user interaction"));
+                }
+            };
+
+            // Update theme when CSS variables change
+            useEffect(() => {
+                const observer = new MutationObserver(() => {
+                    const primaryColor = getComputedStyle(document.documentElement)
+                        .getPropertyValue('--primary-color').trim();
+                    setThemeColor(primaryColor);
+                });
+
+                observer.observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ['style']
+                });
+
+                return () => observer.disconnect();
+            }, []);
+
+            return React.createElement('div', {
+                className: "relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+            }, [
+                React.createElement(NightSky, { key: 'nightsky' }),
+                
+                React.createElement('audio', {
+                    key: 'audio',
+                    ref: audioRef,
+                    loop: true,
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                }),
+
+                !isStarted && React.createElement('div', {
+                    key: 'intro',
+                    className: "z-50 flex flex-col items-center animate-fade-in text-center p-6 adaptive-message-box mx-4 max-w-lg"
+                }, [
+                    React.createElement('div', {
+                        key: 'cake',
+                        className: "w-28 h-28 mb-8 adaptive-gradient rounded-full flex items-center justify-center text-5xl animate-float adaptive-shadow-primary"
+                    }, "🎂"),
+                    React.createElement('h1', {
+                        key: 'title',
+                        className: "text-white text-4xl md:text-6xl font-elegant mb-8 drop-shadow-lg"
+                    }, "A Special Surprise Awaits"),
+                    React.createElement('p', {
+                        key: 'subtitle',
+                        className: "adaptive-primary text-xl mb-8 font-semibold",
+                        style: { color: themeColor }
+                    }, "Upload a photo to customize the entire theme!"),
+                    React.createElement('button', {
+                        key: 'button',
+                        onClick: startCelebration,
+                        className: "px-10 py-5 adaptive-gradient text-slate-900 rounded-full font-bold text-xl hover:scale-105 transition-transform adaptive-shadow-primary cursor-pointer"
+                    }, "Enter the Celebration")
+                ]),
+
+                isStarted && React.createElement(React.Fragment, { key: 'celebration' }, [
+                    React.createElement(ConfettiEffect, { key: 'confetti' }),
+                    React.createElement(BalloonContainer, { key: 'balloons' }),
+                    React.createElement(FlowerDecoration, { key: 'flowers' }),
+
+                    React.createElement('div', {
+                        key: 'content',
+                        className: "z-10 relative flex flex-col items-center w-full px-4 text-center"
+                    }, [
+                        React.createElement('div', {
+                            key: 'main-content',
+                            className: "max-w-3xl mx-auto space-y-12"
+                        }, [
+                            React.createElement('div', {
+                                key: 'headers',
+                                className: "space-y-6"
+                            }, [
+                                React.createElement('h2', {
+                                    key: 'subtitle',
+                                    className: "adaptive-primary text-2xl md:text-3xl font-cursive animate-fade-in font-bold",
+                                    style: { color: themeColor }
+                                }, "Our Dear Papa..."),
+                                React.createElement('h1', {
+                                    key: 'main-title',
+                                    className: "text-5xl md:text-8xl font-elegant bg-clip-text text-transparent bg-gradient-to-b from-yellow-100 via-yellow-300 to-amber-500 font-bold drop-shadow-[0_2px_15px_rgba(234,179,8,0.4)]",
+                                    style: { animation: 'scaleIn 1.5s ease-out forwards' }
+                                }, "Happy 50th Birthday!")
+                            ]),
+
+                            React.createElement('div', {
+                                key: 'message-box',
+                                className: "adaptive-message-box p-8 md:p-12 rounded-3xl"
+                            }, React.createElement(TypewriterMessage, { key: 'typewriter' })),
+
+                            React.createElement('div', {
+                                key: 'quote',
+                                className: "pt-8 adaptive-primary italic",
+                                style: { 
+                                    animation: 'fadeIn 2s ease-out 3s forwards', 
+                                    opacity: 0,
+                                    color: themeColor 
+                                }
+                            }, React.createElement('p', {
+                                className: "text-xl font-vibes"
+                            }, "\"50 years of wisdom, love, and being our hero.\""))
+                        ])
+                    ])
+                ])
+            ]);
+        };
+
+        // Render the App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+
+    <!-- Smart Photo Analysis and Theme Adaptation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorThief = new ColorThief();
+            let currentDominantColor = '#f59e0b';
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('birthdayWebsiteTheme');
+            const savedBackground = localStorage.getItem('birthdayWebsiteBackground');
+            const photoBackground = document.getElementById('photoBackground');
+            const bgStatus = document.getElementById('bgStatus');
+            const themeStatus = document.getElementById('themeStatus');
+            
+            if (savedTheme && savedBackground) {
+                applyTheme(JSON.parse(savedTheme));
+                photoBackground.style.setProperty('--user-background', `url('${savedBackground}')`);
+                bgStatus.innerHTML = '<i class="fas fa-check text-green-400 mr-1"></i>Custom Theme Active';
+                themeStatus.textContent = `Adaptive Theme: ${JSON.parse(savedTheme).themeName}`;
+                
+                showMessage('Custom theme loaded successfully!', 'success');
+            }
+            
+            // Upload functionality
+            const uploadBtn = document.getElementById('uploadBtn');
+            const uploadModal = document.getElementById('uploadModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const applyBtn = document.getElementById('applyBtn');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const urlInput = document.getElementById('urlInput');
+            const colorPalette = document.getElementById('colorPalette');
+            
+            // Open upload modal
+            uploadBtn.addEventListener('click', function() {
+                uploadModal.style.display = 'flex';
+                colorPalette.innerHTML = '';
+            });
+            
+            // Close upload modal
+            cancelBtn.addEventListener('click', closeModal);
+            uploadModal.addEventListener('click', function(e) {
+                if (e.target === uploadModal) {
+                    closeModal();
+                }
+            });
+            
+            // File upload
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files[0]) {
+                    analyzeImage(e.target.files[0]);
+                }
+            });
+            
+            // URL input
+            urlInput.addEventListener('input', function() {
+                applyBtn.disabled = !urlInput.value.trim();
+            });
+            
+            // Drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, function() {
+                    uploadArea.classList.add('dragover');
+                });
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, function() {
+                    uploadArea.classList.remove('dragover');
+                });
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files[0]) {
+                    analyzeImage(files[0]);
+                }
+            });
+            
+            // Analyze image and extract colors
+            function analyzeImage(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file');
+                    return;
+                }
+                
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size should be less than 10MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        // Extract dominant color
+                        const dominantColor = colorThief.getColor(img);
+                        const palette = colorThief.getPalette(img, 6);
+                        
+                        // Convert to hex
+                        const dominantHex = rgbToHex(dominantColor[0], dominantColor[1], dominantColor[2]);
+                        currentDominantColor = dominantHex;
+                        
+                        // Update URL input
+                        urlInput.value = e.target.result;
+                        applyBtn.disabled = false;
+                        
+                        // Show color palette
+                        showColorPalette([dominantColor, ...palette]);
+                        
+                        // Preview theme
+                        previewTheme(dominantHex);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Show color palette
+            function showColorPalette(colors) {
+                colorPalette.innerHTML = '';
+                colors.forEach(color => {
+                    const hex = rgbToHex(color[0], color[1], color[2]);
+                    const colorDiv = document.createElement('div');
+                    colorDiv.className = 'color-sample';
+                    colorDiv.style.backgroundColor = hex;
+                    colorDiv.title = hex;
+                    colorDiv.onclick = function() {
+                        currentDominantColor = hex;
+                        previewTheme(hex);
+                    };
+                    colorPalette.appendChild(colorDiv);
+                });
+            }
+            
+            // Preview theme
+            function previewTheme(primaryColor) {
+                const rgb = hexToRgb(primaryColor);
+                const brightness = calculateBrightness(rgb);
+                
+                // Set preview variables
+                document.documentElement.style.setProperty('--primary-color', primaryColor);
+                document.documentElement.style.setProperty('--secondary-color', adjustColor(primaryColor, -30));
+                document.documentElement.style.setProperty('--accent-color', adjustColor(primaryColor, 20));
+                
+                // Adjust overlay based on brightness
+                const overlay = brightness > 180 ? 0.85 : 0.75;
+                document.documentElement.style.setProperty('--overlay-opacity', overlay.toString());
+                
+                // Adjust text color
+                const textColor = brightness > 150 ? '#000000' : '#ffffff';
+                document.documentElement.style.setProperty('--text-color', textColor);
+                
+                // Update theme status
+                themeStatus.textContent = `Adaptive Theme: Preview`;
+            }
+            
+            // Apply theme permanently
+            applyBtn.addEventListener('click', function() {
+                const imageUrl = urlInput.value.trim();
+                
+                if (!imageUrl) {
+                    alert('Please upload a file or enter a URL');
+                    return;
+                }
+                
+                // Analyze for final colors
+                const img = new Image();
+                img.onload = function() {
+                    const dominantColor = colorThief.getColor(img);
+                    const primaryHex = rgbToHex(dominantColor[0], dominantColor[1], dominantColor[2]);
+                    const rgb = hexToRgb(primaryHex);
+                    const brightness = calculateBrightness(rgb);
+                    
+                    // Create theme object
+                    const theme = {
+                        primaryColor: primaryHex,
+                        secondaryColor: adjustColor(primaryHex, -30),
+                        accentColor: adjustColor(primaryHex, 20),
+                        overlayOpacity: brightness > 180 ? 0.85 : 0.75,
+                        textColor: brightness > 150 ? '#000000' : '#ffffff',
+                        themeName: getThemeName(primaryHex),
+                        brightness: brightness,
+                        backgroundFilter: brightness > 180 ? 'brightness(0.8) contrast(1.2)' : 'brightness(0.9) contrast(1.1)'
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('birthdayWebsiteTheme', JSON.stringify(theme));
+                    localStorage.setItem('birthdayWebsiteBackground', imageUrl);
+                    
+                    // Apply theme
+                    applyTheme(theme);
+                    
+                    // Apply background
+                    photoBackground.style.setProperty('--user-background', `url('${imageUrl}')`);
+                    photoBackground.style.setProperty('--background-filter', theme.backgroundFilter);
+                    
+                    // Update indicators
+                    bgStatus.innerHTML = '<i class="fas fa-check text-green-400 mr-1"></i>Custom Theme Active';
+                    themeStatus.textContent = `Adaptive Theme: ${theme.themeName}`;
+                    
+                    // Close modal
+                    closeModal();
+                    
+                    // Show success message
+                    showMessage(`Theme adapted to ${theme.themeName} mode!`, 'success');
+                    
+                    // Force React components to update
+                    setTimeout(() => {
+                        window.dispatchEvent(new Event('themechange'));
+                    }, 100);
+                };
+                img.src = imageUrl;
+            });
+            
+            // Apply theme from object
+            function applyTheme(theme) {
+                document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+                document.documentElement.style.setProperty('--secondary-color', theme.secondaryColor);
+                document.documentElement.style.setProperty('--accent-color', theme.accentColor);
+                document.documentElement.style.setProperty('--overlay-opacity', theme.overlayOpacity.toString());
+                document.documentElement.style.setProperty('--text-color', theme.textColor);
+                document.documentElement.style.setProperty('--card-bg', theme.brightness > 150 ? 
+                    'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.4)');
+            }
+            
+            // Helper functions
+            function rgbToHex(r, g, b) {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            
+            function hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            }
+            
+            function adjustColor(hex, percent) {
+                const num = parseInt(hex.replace('#', ''), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = Math.min(255, Math.max(0, (num >> 16) + amt));
+                const G = Math.min(255, Math.max(0, (num >> 8 & 0x00FF) + amt));
+                const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
+                return '#' + ((1 << 24) + (R << 16) + (G << 8) + B).toString(16).slice(1);
+            }
+            
+            function calculateBrightness(rgb) {
+                return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+            }
+            
+            function getThemeName(hex) {
+                const rgb = hexToRgb(hex);
+                const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+                
+                if (hsv.s < 0.2) return 'Minimal';
+                if (hsv.v < 0.3) return 'Dark Elegant';
+                if (hsv.h < 30) return 'Warm Sunset';
+                if (hsv.h < 90) return 'Golden Hour';
+                if (hsv.h < 150) return 'Cool Breeze';
+                if (hsv.h < 210) return 'Ocean Blue';
+                if (hsv.h < 270) return 'Royal Purple';
+                return 'Vibrant';
+            }
+            
+            function rgbToHsv(r, g, b) {
+                r /= 255, g /= 255, b /= 255;
+                const max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, v = max;
+                const d = max - min;
+                s = max === 0 ? 0 : d / max;
+                
+                if (max === min) {
+                    h = 0;
+                } else {
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                return { h: h * 360, s, v };
+            }
+            
+            function closeModal() {
+                uploadModal.style.display = 'none';
+                fileInput.value = '';
+                urlInput.value = '';
+                applyBtn.disabled = true;
+                uploadArea.classList.remove('dragover');
+                
+                // Reset preview
+                if (!localStorage.getItem('birthdayWebsiteTheme')) {
+                    document.documentElement.style.setProperty('--primary-color', '#f59e0b');
+                    document.documentElement.style.setProperty('--secondary-color', '#d97706');
+                    document.documentElement.style.setProperty('--accent-color', '#fbbf24');
+                    document.documentElement.style.setProperty('--overlay-opacity', '0.75');
+                    document.documentElement.style.setProperty('--text-color', '#ffffff');
+                    themeStatus.textContent = 'Adaptive Theme: Default';
+                }
+            }
+            
+            function showMessage(text, type) {
+                const message = document.createElement('div');
+                message.className = `fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg font-semibold z-50 backdrop-blur-sm ${
+                    type === 'success' ? 'bg-green-500/90' : 
+                    type === 'error' ? 'bg-red-500/90' : 
+                    'bg-blue-500/90'
+                }`;
+                message.textContent = text;
+                message.style.animation = 'fadeIn 0.3s ease-out';
+                document.body.appendChild(message);
+                
+                setTimeout(() => {
+                    message.style.animation = 'fadeIn 0.3s ease-out reverse';
+                    setTimeout(() => message.remove(), 300);
+                }, 3000);
+            }
+            
+            // Clear saved theme (for testing)
+            function clearSavedTheme() {
+                localStorage.removeItem('birthdayWebsiteTheme');
+                localStorage.removeItem('birthdayWebsiteBackground');
+                photoBackground.style.setProperty('--user-background', 
+                    "url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80')");
+                photoBackground.style.removeProperty('--background-filter');
+                bgStatus.innerHTML = 'Default Background';
+                themeStatus.textContent = 'Adaptive Theme: Default';
+                showMessage('Theme reset to default', 'info');
+                
+                // Reset CSS variables
+                document.documentElement.style.setProperty('--primary-color', '#f59e0b');
+                document.documentElement.style.setProperty('--secondary-color', '#d97706');
+                document.documentElement.style.setProperty('--accent-color', '#fbbf24');
+                document.documentElement.style.setProperty('--overlay-opacity', '0.75');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(0, 0, 0, 0.4)');
+            }
+            
+            // Add clear button for testing
+            const clearBtn = document.createElement('button');
+            clearBtn.innerHTML = '<i class="fas fa-trash mr-2"></i>Reset Theme';
+            clearBtn.className = 'fixed bottom-80 left-20 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold z-50 hidden backdrop-blur-sm';
+            clearBtn.onclick = clearSavedTheme;
+            document.body.appendChild(clearBtn);
+            
+            // Show clear button when holding Ctrl+Shift+T
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    clearBtn.classList.toggle('hidden');
+                }
+            });
+            
+            // Escape key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
